@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>جمعية مهارات الشباب - الأنشطة والتسجيل</title>
+
+  <style>
+    :root{
+      --primary:#0b5f6b;
+      --primary-2:#084a53;
+      --accent:#7fd0c5;
+      --bg:#f4fbfa;
+      --card:#ffffff;
+      --text:#0b2230;
+      --muted:#5a6b75;
+      --danger:#b42318;
+      --shadow: 0 10px 25px rgba(8,74,83,.12);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(180deg, rgba(127,208,197,.16), rgba(11,95,107,.06) 55%, var(--bg));
+      min-height:100vh;
+    }
+
+    a{color:inherit}
+    .container{width:min(1100px, 92%); margin-inline:auto; padding: 18px 0 40px;}
+
+    header{
+      background: radial-gradient(1200px 400px at 50% -50%, rgba(127,208,197,.55), rgba(11,95,107,.98)),
+                  linear-gradient(90deg, var(--primary), var(--primary-2));
+      color:#fff;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:14px; padding: 16px 0;}
+    .brand{display:flex; align-items:center; gap:14px; min-width: 240px;}
+
+    /* ✅ الشعار الجديد */
+    .logo{
+      width:58px;height:58px;border-radius:18px;
+      background: rgba(255,255,255,.12);
+      display:grid;place-items:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      overflow:hidden;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover}
+
+    .brand h1{font-size: 18px;margin:0;line-height:1.25;}
+    .brand p{margin:4px 0 0;font-size: 12px;opacity:.9;}
+
+    .cta{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+
+    /* ✅ رقم الواتساب مع أيقونة واتساب الحقيقية بجانبه */
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.16);
+      padding:10px 12px; border-radius: 999px;
+      font-size: 13px; backdrop-filter: blur(6px);
+      cursor: default; user-select:none;
+    }
+    .pill svg{width:18px;height:18px; display:block; color:#fff}
+
+    .btn{
+      border:0; background: #7fd0c5; color: #053238;
+      padding: 10px 14px; border-radius: 12px;
+      font-weight:800; cursor:pointer;
+      transition: transform .08s ease, filter .2s ease;
+      box-shadow: 0 10px 20px rgba(127,208,197,.25);
+      text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .btn:hover{filter: brightness(1.02)}
+    .btn:active{transform: translateY(1px)}
+    .btn.secondary{
+      background: rgba(255,255,255,.14);
+      color:#fff; border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+
+    .section-title{
+      margin: 22px 0 10px;
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+    }
+    .section-title h2{margin:0; font-size: 18px; color: var(--primary-2);}
+    .section-title .hint{margin:0; font-size: 13px; color: var(--muted);}
+
+    .grid{display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;}
+    @media (max-width: 980px){.grid{grid-template-columns: repeat(2, 1fr);}}
+    @media (max-width: 520px){
+      .grid{grid-template-columns: 1fr;}
+      .topbar{flex-direction:column; align-items:stretch;}
+      .cta{justify-content:flex-start;}
+    }
+
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(8,74,83,.08);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      min-height: 260px;
+    }
+
+    /* ✅ إبراز/تكبير أيقونات الأنشطة بشكل أوضح */
+    .card .banner{
+      height: 115px;
+      background:
+        radial-gradient(240px 140px at 70% 10%, rgba(127,208,197,.78), transparent 60%),
+        linear-gradient(135deg, rgba(11,95,107,.95), rgba(8,74,83,.98));
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .activityIcon{
+      width:72px;
+      height:72px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.22);
+      display:grid;
+      place-items:center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 16px 30px rgba(0,0,0,.16);
+      font-size: 38px;
+      line-height:1;
+      transform: translateY(4px);
+    }
+
+    .tag{
+      position:absolute; top:12px; right:12px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      color:#fff; padding: 6px 10px;
+      font-size: 12px; border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+    .card .content{padding: 14px 14px 16px; display:flex; flex-direction:column; gap:10px; flex:1;}
+    .card h3{margin:0; font-size: 16px; color: var(--primary-2);}
+    .card p{margin:0; font-size: 13px; color: var(--muted); line-height:1.6;}
+    .card .actions{margin-top:auto; display:flex; gap:10px; flex-wrap:wrap;}
+
+    .view{display:none; margin-top: 14px;}
+    .view.active{display:block;}
+
+    .panel{
+      background:#fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border:1px solid rgba(8,74,83,.08);
+      overflow:hidden;
+    }
+    .panel-header{
+      padding: 14px 16px;
+      background: linear-gradient(90deg, rgba(127,208,197,.28), rgba(11,95,107,.06));
+      border-bottom:1px solid rgba(8,74,83,.08);
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px; flex-wrap:wrap;
+    }
+    .panel-header h3{margin:0; color: var(--primary-2); font-size: 16px;}
+    .panel-body{padding: 16px;}
+
+    /* ✅ زر العودة واضح وبخط غامق */
+    .backBtn{
+      font-weight: 900 !important;
+      border: 2px solid rgba(255,255,255,.28) !important;
+      padding: 10px 16px !important;
+      letter-spacing: .2px;
+    }
+    .backBtn svg{width:18px;height:18px}
+
+    form{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    @media (max-width: 700px){form{grid-template-columns: 1fr;}}
+    label{display:block; font-size: 13px; color: var(--primary-2); margin-bottom:6px; font-weight:800;}
+    input, select{
+      width:100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(8,74,83,.16);
+      outline:none; background: #fff; font-size: 14px;
+    }
+    input:focus, select:focus{
+      border-color: rgba(127,208,197,.95);
+      box-shadow: 0 0 0 4px rgba(127,208,197,.22);
+    }
+    .full{grid-column: 1 / -1;}
+    .form-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start;}
+    .btn.danger{
+      background: #fff;
+      color: var(--danger);
+      border:1px solid rgba(180,35,24,.25);
+      box-shadow:none;
+    }
+
+    footer{margin-top: 20px; padding: 18px 0 10px; color: var(--muted); font-size: 13px;}
+
+    /* ✅ أيقونات التواصل الاجتماعي: الضغط ينقلك مباشرة */
+    .social{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .social a{
+      text-decoration:none;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(8,74,83,.14);
+      background:#fff;
+      box-shadow: 0 10px 20px rgba(8,74,83,.06);
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      color: var(--primary-2);
+      font-weight:800;
+    }
+    .social svg{width:18px;height:18px; display:block;}
+    .social a:hover{box-shadow: 0 14px 26px rgba(8,74,83,.10);}
+
+    /* ✅ الحقوق أسفل الصفحة وفي المنتصف */
+    .copyright{
+      text-align:center;
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .successBox{
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(127,208,197,.7);
+      background: rgba(127,208,197,.18);
+      color: var(--primary-2);
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .successBox strong{font-size: 16px}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-label="شعار جمعية مهارات الشباب">
+            <img src="https://d.top4top.io/p_3680ff2e81.jpeg" alt="شعار جمعية مهارات الشباب" />
+          </div>
+          <div>
+            <h1>جمعية مهارات الشباب</h1>
+            <p>منصة التسجيل في الأنشطة الشبابية</p>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div class="pill" aria-label="رقم واتساب التواصل">
+            <!-- ✅ أيقونة واتساب الحقيقية -->
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <path d="M20 11.6a8 8 0 1 1-15.1 3.3L4 21l6.2-1.6A8 8 0 0 1 20 11.6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M9.2 9.1c.2-.5.4-.5.7-.5h.6c.2 0 .4.1.5.4l.7 1.7c.1.2.1.5 0 .7l-.4.5c-.1.2-.1.4 0 .6.4.8 1.4 1.9 2.2 2.3.2.1.4.1.6 0l.6-.4c.2-.1.5-.1.7 0l1.7.8c.3.1.4.3.4.5v.6c0 .3 0 .6-.5.7-.6.2-2 .6-4.1-.4-2.2-1.1-3.7-3.6-3.9-3.9-1-2-.6-3.5-.4-4.1Z" fill="currentColor"/>
+            </svg>
+            واتساب: <b>0539901102</b>
+          </div>
+
+          <a class="btn secondary" href="https://wa.me/966539901102" target="_blank" rel="noopener">تواصل واتساب</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- الصفحة الرئيسية -->
+    <section id="homeView" class="view active" aria-label="الصفحة الرئيسية">
+      <div class="section-title">
+        <h2>اختر نشاطك وسجّل بسهولة</h2>
+        <p class="hint">اضغط على أي قالب نشاط، ثم اختر “التسجيل في البرنامج”.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="banner">
+            <span class="tag">🎮 منافسة</span>
+            <div class="activityIcon" aria-hidden="true">🎮</div>
+          </div>
+          <div class="content">
+            <h3>دوري بلايستيشن</h3>
+            <p>بطولة شبابية تنافسية بنظام مجموعات وخروج مغلوب (حسب عدد المسجلين).</p>
+            <div class="actions">
+              <button class="btn" onclick="openRegister('دوري بلايستيشن')">التسجيل في البرنامج</button>
+              <a class="btn secondary" href="https://wa.me/966539901102?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%2C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A8%D9%84%D8%A7%D9%8A%D8%B3%D8%AA%D9%8A%D8%B4%D9%86" target="_blank" rel="noopener">استفسار</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="banner">
+            <span class="tag">🏐 رياضة</span>
+            <div class="activityIcon" aria-hidden="true">🏐</div>
+          </div>
+          <div class="content">
+            <h3>دوري الطائرة</h3>
+            <p>مباريات ودية وتنافسية لتنمية اللياقة وروح الفريق والانضباط.</p>
+            <div class="actions">
+              <button class="btn" onclick="openRegister('دوري الطائرة')">التسجيل في البرنامج</button>
+              <a class="btn secondary" href="https://wa.me/966539901102?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%2C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AF%D9%88%D8%B1%D9%8A%20%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D8%B1%D8%A9" target="_blank" rel="noopener">استفسار</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="banner">
+            <span class="tag">⚽ رياضة</span>
+            <div class="activityIcon" aria-hidden="true">⚽</div>
+          </div>
+          <div class="content">
+            <h3>دوري كرة القدم</h3>
+            <p>تنظيم مباريات وجداول، وتحكيم، وجوائز للمراكز الأولى (حسب الخطة).</p>
+            <div class="actions">
+              <button class="btn" onclick="openRegister('دوري كرة القدم')">التسجيل في البرنامج</button>
+              <a class="btn secondary" href="https://wa.me/966539901102?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%2C%20%D8%A3%D8%B1%D9%8A%D8AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AF%D9%88%D8%B1%D9%8A%20%D9%83%D8%B1%D8%A9%20%D8%A7%D9%84%D9%82%D8%AF%D9%85" target="_blank" rel="noopener">استفسار</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="banner">
+            <span class="tag">🏕️ رحلة</span>
+            <div class="activityIcon" aria-hidden="true">🏕️</div>
+          </div>
+          <div class="content">
+            <h3>رحلة برّية</h3>
+            <p>فعالية اجتماعية للشباب تشمل برامج ترفيهية وتربوية وتعارف.</p>
+            <div class="actions">
+              <button class="btn" onclick="openRegister('رحلة برّية')">التسجيل في البرنامج</button>
+              <a class="btn secondary" href="https://wa.me/966539901102?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%2C%20%D8%A3%D8%B1%D9%8A%D8AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%B1%D8%AD%D9%84%D8%A9%20%D8%A8%D8%B1%D9%91%D9%8A%D8%A9" target="_blank" rel="noopener">استفسار</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <footer>
+        <div class="section-title" style="margin-top:18px;">
+          <h2>التواصل الاجتماعي</h2>
+          <p class="hint">اضغط على أي منصة وسيتم تحويلك لحساب الجمعية مباشرة.</p>
+        </div>
+
+        <div class="social">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/mharat024?igsh=a3piajZzMWJsYmFh" target="_blank" rel="noopener" aria-label="إنستغرام">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Z" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M12 16.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M17.2 6.8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            إنستغرام
+          </a>
+
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@mharat024?_r=1&_t=ZS-93S0nuPwOBB" target="_blank" rel="noopener" aria-label="تيك توك">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <path d="M14 3v9.2a3.8 3.8 0 1 1-3.3-3.77" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 3c1.1 2.4 3 4 6 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M14 7.2c1.3 1.4 3 2.3 6 2.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+            تيك توك
+          </a>
+
+          <!-- X -->
+          <a href="https://x.com/mharat024?s=21" target="_blank" rel="noopener" aria-label="إكس">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            X
+          </a>
+
+          <!-- YouTube -->
+          <a href="https://youtube.com/@b_n2023?si=OYWRqF-7wpzzw6ri" target="_blank" rel="noopener" aria-label="يوتيوب">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <path d="M21 12s0-3.2-.4-4.7a2.6 2.6 0 0 0-1.8-1.8C17.3 5 12 5 12 5s-5.3 0-6.8.5a2.6 2.6 0 0 0-1.8 1.8C3 8.8 3 12 3 12s0 3.2.4 4.7a2.6 2.6 0 0 0 1.8 1.8C6.7 19 12 19 12 19s5.3 0 6.8-.5a2.6 2.6 0 0 0 1.8-1.8c.4-1.5.4-4.7.4-4.7Z" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M10.3 9.5v5l5-2.5-5-2.5Z" fill="currentColor"/>
+            </svg>
+            يوتيوب
+          </a>
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/966539901102" target="_blank" rel="noopener" aria-label="واتساب">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+              <path d="M20 11.6a8 8 0 1 1-15.1 3.3L4 21l6.2-1.6A8 8 0 0 1 20 11.6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M9.2 9.1c.2-.5.4-.5.7-.5h.6c.2 0 .4.1.5.4l.7 1.7c.1.2.1.5 0 .7l-.4.5c-.1.2-.1.4 0 .6.4.8 1.4 1.9 2.2 2.3.2.1.4.1.6 0l.6-.4c.2-.1.5-.1.7 0l1.7.8c.3.1.4.3.4.5v.6c0 .3 0 .6-.5.7-.6.2-2 .6-4.1-.4-2.2-1.1-3.7-3.6-3.9-3.9-1-2-.6-3.5-.4-4.1Z" fill="currentColor"/>
+            </svg>
+            واتساب
+          </a>
+        </div>
+
+        <div class="copyright">© جمعية مهارات الشباب — جميع الحقوق محفوظة</div>
+      </footer>
+    </section>
+
+    <!-- صفحة التسجيل -->
+    <section id="registerView" class="view" aria-label="صفحة التسجيل">
+      <div class="panel">
+        <div class="panel-header">
+          <h3 id="programTitle">التسجيل في البرنامج</h3>
+
+          <!-- ✅ زر عودة واضح + بولد -->
+          <button class="btn secondary backBtn" type="button" onclick="goHome()" aria-label="العودة للصفحة الرئيسية">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            العودة للصفحة الرئيسية
+          </button>
+        </div>
+
+        <div class="panel-body">
+          <p style="margin-top:0;color:var(--muted);line-height:1.7">
+            الرجاء تعبئة البيانات التالية لإتمام التسجيل.
+          </p>
+
+          <form id="regForm" onsubmit="submitForm(event)">
+            <div>
+              <label for="fullName">الاسم</label>
+              <input id="fullName" name="fullName" type="text" placeholder="مثال: أحمد محمد" required />
+            </div>
+
+            <div>
+              <label for="phone">رقم الجوال</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="05xxxxxxxx" required />
+            </div>
+
+            <div class="full">
+              <label for="stage">المرحلة الدراسية</label>
+              <select id="stage" name="stage" required>
+                <option value="" selected disabled>اختر المرحلة</option>
+                <option>ابتدائي</option>
+                <option>متوسط</option>
+                <option>ثانوي</option>
+                <option>جامعي</option>
+                <option>خريج / موظف</option>
+              </select>
+            </div>
+
+            <div class="full form-actions">
+              <button class="btn" type="submit">✅ تأكيد التسجيل</button>
+              <button class="btn danger" type="button" onclick="goHome()">إلغاء</button>
+            </div>
+          </form>
+
+          <div class="copyright">© جمعية مهارات الشباب — جميع الحقوق محفوظة</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- رسالة نجاح -->
+    <section id="successView" class="view" aria-label="تم التسجيل بنجاح">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>نتيجة التسجيل</h3>
+          <button class="btn secondary backBtn" type="button" onclick="goHome()" aria-label="العودة للصفحة الرئيسية">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            العودة للصفحة الرئيسية
+          </button>
+        </div>
+        <div class="panel-body">
+          <div class="successBox">
+            <strong>🎉 تم التسجيل بنجاح</strong>
+            <div id="successText" style="color:var(--primary-2)"></div>
+            <div class="form-actions">
+              <button class="btn" type="button" onclick="goHome()">🏠 العودة للصفحة الرئيسية</button>
+              <a class="btn secondary" id="whatsBtn" target="_blank" rel="noopener">تأكيد عبر واتساب</a>
+            </div>
+          </div>
+
+          <div class="copyright">© جمعية مهارات الشباب — جميع الحقوق محفوظة</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const homeView = document.getElementById("homeView");
+    const registerView = document.getElementById("registerView");
+    const successView = document.getElementById("successView");
+
+    const programTitle = document.getElementById("programTitle");
+    const successText = document.getElementById("successText");
+    const whatsBtn = document.getElementById("whatsBtn");
+    const regForm = document.getElementById("regForm");
+
+    let selectedProgram = "";
+
+    function show(view){
+      [homeView, registerView, successView].forEach(v => v.classList.remove("active"));
+      view.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openRegister(programName){
+      selectedProgram = programName;
+      programTitle.textContent = "التسجيل في: " + programName;
+      regForm.reset();
+      show(registerView);
+    }
+
+    function goHome(){
+      selectedProgram = "";
+      show(homeView);
+    }
+
+    function isSaudiMobile(phone){
+      const p = (phone || "").replace(/\s+/g,"");
+      if (/^05\\d{8}$/.test(p)) return true;
+      if (/^\\+?9665\\d{8}$/.test(p)) return true;
+      return false;
+    }
+
+    function submitForm(e){
+      e.preventDefault();
+
+      const name = document.getElementById("fullName").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const stage = document.getElementById("stage").value;
+
+      if (!name || !phone || !stage){
+        alert("فضلاً أكمل جميع الحقول.");
+        return;
+      }
+
+      if (!isSaudiMobile(phone)){
+        alert("رقم الجوال يبدو غير صحيح. مثال صحيح: 05xxxxxxxx");
+        return;
+      }
+
+      successText.innerHTML =
+        `تم تسجيل <b>${escapeHtml(name)}</b> في برنامج <b>${escapeHtml(selectedProgram)}</b> (المرحلة: <b>${escapeHtml(stage)}</b>).`;
+
+      const waNumber = "966539901102";
+      const msg = `السلام عليكم، تم تسجيلي في (${selectedProgram}).\nالاسم: ${name}\nالجوال: ${phone}\nالمرحلة: ${stage}`;
+      whatsBtn.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
+
+      show(successView);
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+  </script>
+</body>
+</html>
